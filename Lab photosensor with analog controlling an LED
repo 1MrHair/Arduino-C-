@@ -1,0 +1,23 @@
+// C++ code
+//
+const int power = A1;
+const int led = 3;
+void setup()
+{
+  pinMode(power, INPUT_PULLUP);
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int power_value = analogRead(power);
+  int digital_map_value = map(power_value, 10, 800, 0, 255);
+  Serial.println(digital_map_value);
+  delay(10);
+  if(digital_map_value > 2){
+    analogWrite(led, digital_map_value);
+  }else{
+    digitalWrite(led, LOW);
+  }
+}
