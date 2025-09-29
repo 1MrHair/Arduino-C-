@@ -12,6 +12,7 @@ const int echoPin = 12;
 long duration;
 int distance;
 int gone = 1;
+int N = 0;
 void setup() {
   // UltraSonoc Pins
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
@@ -46,7 +47,7 @@ void loop() {
   if(distance < 10){
     Serial.println("STOP!!!");
   }
-  while(distance < 5){
+  while(distance < 6){
     gone = 1;
     digitalWrite(trigPin, LOW);
     delayMicroseconds(2);
@@ -62,6 +63,9 @@ void loop() {
   if(gone == 1){
     Serial.println("Object is Gone.");
     gone = 0;
+    N++;
+    Serial.print("Total amount of Objects Detected: ");
+    Serial.println(N);
     delay(500);
   }
   if(distance > 5){
