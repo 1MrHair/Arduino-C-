@@ -11,7 +11,7 @@ const int echoPin = 12;
 // defines variables
 long duration;
 int distance;
-
+int gone = 1;
 void setup() {
   // UltraSonoc Pins
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
@@ -35,18 +35,36 @@ void loop() {
 
   // Reads the echoPin, returns the sound wave travel time in microseconds
   duration = pulseIn(echoPin, HIGH);
-
-  // Calculating the distance
   distance = duration * 0.034 / 2;
-  
   Serial.print("Distance from sensor: ");
   Serial.println(distance);
-  if(distance < 10){
+  if(distance < 20){
     digitalWrite(13, HIGH);
   }else{
     digitalWrite(13, LOW);
   }
-  if(distance < 5){
+  if(distance < 10){
     Serial.println("STOP!!!");
+  }
+  while(distance < 5){
+    gone = 1;
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = duration * 0.034 / 2;
+    if(distance < 50){
+      Serial.println("Object detected.");
+    }
+  }
+  if(gone == 1){
+    Serial.println("Object is Gone.");
+    gone = 0;
+    delay(500);
+  }
+  if(distance > 5){
+    Serial.println("Waiting to detect Object.");
   }
 }
