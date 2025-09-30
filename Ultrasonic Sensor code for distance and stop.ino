@@ -31,15 +31,14 @@ void loop() {
   }else{
     digitalWrite(13, LOW);
   }
-  if(distance < 10){
+  while(distance > 10){
+    DistanceValue();
     Serial.println("STOP!!!");
   }
-  while(distance < 6){
+  while(distance <= 6){
     gone = 1;
     DistanceValue();
-    if(distance < 50){
-      Serial.println("Object detected.");
-    }
+    Serial.println("Object detected.");
   }
   if(gone == 1){
     Serial.println("Object is Gone.");
