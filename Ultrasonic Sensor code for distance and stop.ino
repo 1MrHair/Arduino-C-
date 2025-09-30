@@ -25,20 +25,7 @@ void setup() {
 }
 
 void loop() {
-  // Clears the trigPin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin, HIGH);
-  distance = duration * 0.034 / 2;
-  Serial.print("Distance from sensor: ");
-  Serial.println(distance);
+  DistanceValue();
   if(distance < 20){
     digitalWrite(13, HIGH);
   }else{
@@ -49,13 +36,7 @@ void loop() {
   }
   while(distance < 6){
     gone = 1;
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds(2);
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
-    duration = pulseIn(echoPin, HIGH);
-    distance = duration * 0.034 / 2;
+    DistanceValue();
     if(distance < 50){
       Serial.println("Object detected.");
     }
@@ -71,4 +52,21 @@ void loop() {
   if(distance > 5){
     Serial.println("Waiting to detect Object.");
   }
+}
+
+void DistanceValue(){
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+  Serial.print("Distance from sensor: ");
+  Serial.println(distance);
 }
