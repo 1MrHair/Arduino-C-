@@ -1,0 +1,41 @@
+#include <Servo.h>
+Servo Servo1;
+Servo Servo2;
+int M_S = A0;
+int L_S_DO = 12;
+int L_S_AO = A1;
+long duration;
+int distance;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Servo1.attach(9);
+  Servo2.attach(10);
+  pinMode(L_S_DO, OUTPUT);
+  pinMode(L_S_AO, OUTPUT);
+  Servo1.write(180);
+  Servo2.write(180);
+  delay(1000);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  delay(100);
+  int L_S_AO_Value = analogRead(L_S_AO);
+  Serial.println("Light Sensor Value: ");
+  Serial.println(L_S_AO_Value);
+  if(L_S_AO_Value >= 350){
+    Servo1.write(90);
+  }else{
+    Servo1.write(180);
+  }
+  int M_S_Value = analogRead(M_S);
+  Serial.println("Magnetic Sensor Value: ");
+  Serial.println(M_S_Value);
+  if(M_S_Value <= 420 || M_S_Value >= 600){
+    Servo2.write(90);
+  }else{
+    Servo2.write(180);
+  }
+}
