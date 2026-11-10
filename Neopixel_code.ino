@@ -24,7 +24,9 @@ void loop() {
   for (int i=0; i < 255; i++){
     if(looop == 2){redColor = i;}
     if(looop == 3){greenColor = i; redColor--;}
-    if(looop == 4){blueColor = i; greenColor--;}
+    if(looop == 4){blueColor = i; greenColor--; redColor = 0;}
+    if(looop == 5){blueColor--; greenColor = 0; redColor = 0;}
+    if(looop == 6){looop = 1;}
     
     for (int i=0; i < NUMPIXELS; i++) {
       // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
